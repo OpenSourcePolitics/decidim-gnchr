@@ -24,6 +24,14 @@ GIT
       decidim-core (= 0.22.0)
 
 GIT
+  remote: https://github.com/Platoniq/decidim-module-navigation_maps
+  revision: d816e695300a9ccc9e424a8986cd51ad256fa722
+  specs:
+    decidim-navigation_maps (1.0)
+      decidim-admin (>= 0.18.0)
+      decidim-core (>= 0.18.0)
+
+GIT
   remote: https://github.com/decidim/decidim.git
   revision: d80d6cb6d1f59963b0a452e418f4a4788abaf1a9
   branch: release/0.22-stable
@@ -847,6 +855,7 @@ DEPENDENCIES
   decidim-cookies!
   decidim-dev!
   decidim-navbar_links!
+  decidim-navigation_maps!
   decidim-term_customizer!
   dotenv-rails
   faker (~> 1.8)
