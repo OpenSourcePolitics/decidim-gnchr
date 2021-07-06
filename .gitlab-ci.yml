@@ -1,0 +1,55 @@
+image: ruby:2.6.3
+
+# Pick zero or more services to be used on all builds.
+# Only needed when using a docker container to run your tests in.
+# Check out: http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
+services:
+  - postgres:latest
+
+variables:
+  RAILS_ENV: test
+  POSTGRES_DB: osp_app_test
+  DATABASE_HOST: postgres
+  DATABASE_USERNAME: runner
+  POSTGRES_USER: runner
+  POSTGRES_PASSWORD: ""
+  POSTGRES_HOST_AUTH_METHOD: trust
+  DATABASE_PORT: "5432"
+
+# Cache gems in between builds
+cache:
+  paths:
+    - vendor/ruby
+
+# This is a basic example for a gem or script which doesn't use
+# services such as redis or postgres
+before_script:
+  - gem install bundler -v "$(cat Gemfile.lock | tail -1 | tr -d " ")"
+  # Uncomment next line if your rails app needs a JS runtime:
+  - apt-get update -q && apt-get install nodejs -yqq
+  - bundle check --path vendor | bundle install -j $(nproc) --path vendor  # Install dependencies into ./vendor/ruby
+
+rubocop:
+  script:
+    - bundle exec rubocop -P
+
+erb:
+  script:
+    bundle exec erblint app/**/*.erb
+
+rspec:
+  script:
+    - bundle exec rake test:setup
+    - bundle exec rspec --exclude-pattern './spec/system/**/*_spec.rb'
+
+rspec-system:
+  script:
+    - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - apt install ./google-chrome-stable_current_amd64.deb -yqq
+    - wget -N https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip
+    - unzip chromedriver_linux64.zip
+    - mv chromedriver /usr/local/bin
+    - chmod +x /usr/local/bin/chromedriver
+    - rm chromedriver_linux64.zip
+    - bundle exec rake test:setup
+    - bundle exec rspec ./spec/system/*_spec.rb
