@@ -881,14 +881,14 @@ DEPENDENCIES
   decidim-navigation_maps (~> 1.1.0)
   decidim-term_customizer!
   dotenv-rails
-  faker (~> 1.8)
+  faker (~> 1.9)
   fog-aws
   letter_opener_web (~> 1.3)
   listen (~> 3.1)
   lograge
   newrelic_rpm
   passenger
-  puma (~> 4.3)
+  puma (~> 4.3.7)
   ruby-progressbar
   sendgrid-ruby
   sentry-raven
@@ -901,7 +901,7 @@ DEPENDENCIES
   web-console (~> 3.5)
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.6.6p146
 
 BUNDLED WITH
-   2.2.15
+   2.2.18
