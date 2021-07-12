@@ -4,7 +4,9 @@ source "https://rubygems.org"
 
 ruby RUBY_VERSION
 
-gem "decidim", "0.23.5"
+DECIDIM_VERSION = "release/0.23-stable"
+
+gem "decidim", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
 # gem "decidim", path: "../decidim"
 
 # gem "decidim-conferences", git: "https://github.com/decidim/decidim.git", branch: "release/0.23-stable"
@@ -27,13 +29,12 @@ gem "bootsnap", "~> 1.3"
 
 gem "dotenv-rails"
 
-gem "puma", "~> 4.3"
+gem "puma", "~> 4.3.7"
 gem "uglifier", "~> 4.1"
 
-gem "faker", "~> 1.8"
+gem "faker", "~> 1.9"
 
 gem "ruby-progressbar"
-gem "sentry-raven"
 
 gem "letter_opener_web", "~> 1.3"
 
@@ -42,7 +43,7 @@ gem "sprockets", "~> 3.7"
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
 
-  gem "decidim-dev", "0.23.5"
+  gem "decidim-dev", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
   # gem "decidim-dev", path: "../decidim"
 end
 
@@ -63,4 +64,7 @@ group :production do
   gem "sendgrid-ruby"
   gem "sidekiq"
   gem "sidekiq-scheduler"
+  gem "sentry-ruby"
+  gem "sentry-rails"
+  gem "sentry-sidekiq"
 end
