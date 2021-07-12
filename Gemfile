@@ -35,7 +35,6 @@ gem "uglifier", "~> 4.1"
 gem "faker", "~> 1.9"
 
 gem "ruby-progressbar"
-gem "sentry-raven"
 
 gem "letter_opener_web", "~> 1.3"
 
@@ -65,4 +64,7 @@ group :production do
   gem "sendgrid-ruby"
   gem "sidekiq"
   gem "sidekiq-scheduler"
+  gem "sentry-ruby"
+  gem "sentry-rails"
+  gem "sentry-sidekiq"
 end
