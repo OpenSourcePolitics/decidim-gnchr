@@ -1,9 +1,4 @@
 # frozen_string_literal: true
-<<<<<<< HEAD
-
-require "rake"
-=======
->>>>>>> decidim-app/master
 
 class OrdersReminderJob < ApplicationJob
   queue_as :scheduled

@@ -51,9 +51,9 @@ group :production do
   gem "newrelic_rpm"
   gem "passenger"
   gem "sendgrid-ruby"
+  gem "sentry-rails"
+  gem "sentry-ruby"
+  gem "sentry-sidekiq"
   gem "sidekiq"
   gem "sidekiq-scheduler"
-  gem "sentry-ruby"
-  gem "sentry-rails"
-  gem "sentry-sidekiq"
 end
