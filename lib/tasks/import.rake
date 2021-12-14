@@ -81,8 +81,8 @@ namespace :import do
 
     def import_data(id, first_name, last_name, email)
       # Extends are only loaded at the last time
-      require "extends/commands/decidim/admin/create_participatory_space_private_user_extends.rb"
-      require "extends/commands/decidim/admin/impersonate_user_extends.rb"
+      require "extends/commands/decidim/admin/create_participatory_space_private_user_extends"
+      require "extends/commands/decidim/admin/impersonate_user_extends"
 
       if email.nil?
         import_without_email(id, first_name, last_name)
@@ -107,8 +107,10 @@ namespace :import do
         handler_name: "osp_authorization_handler",
         authorization: Decidim::AuthorizationHandler.handler_for(
           "osp_authorization_handler",
-          user: new_user,
-          document_number: id
+          {
+            user: new_user,
+            document_number: id
+          }
         )
       ).with_context(
         current_organization: current_organization,
@@ -150,8 +152,10 @@ namespace :import do
           Decidim::Authorization.create_or_update_from(
             Decidim::AuthorizationHandler.handler_for(
               "osp_authorization_handler",
-              user: user,
-              document_number: id
+              {
+                user: user,
+                document_number: id
+              }
             )
           )
           Rails.logger.debug I18n.t("participatory_space_private_users.create.success", scope: "decidim.admin")
@@ -168,7 +172,7 @@ namespace :import do
     end
 
     def set_name(first_name, last_name)
-      first_name + " " + last_name
+      "#{first_name} #{last_name}"
     end
 
     def current_user
@@ -187,7 +191,7 @@ namespace :import do
 
     @verbose = ENV["VERBOSE"].to_s == "true"
     Rails.logger = if @verbose
-                     Logger.new(STDOUT)
+                     Logger.new($stdout)
                    else
                      Logger.new("log/import-user-#{Time.zone.now.strftime "%Y-%m-%d-%H:%M:%S"}.log")
                    end
