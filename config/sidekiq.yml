@@ -25,4 +25,3 @@
     cron: '0 0 4 * * *' # Run at 04:00
     class: BackupJob
     queue: backups
-
